@@ -13,9 +13,11 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { SignupValidation } from "@/lib/validation";
 import { z } from "zod";
+import Loader from "@/components/shared/Loader";
+import { Link } from "react-router-dom";
 
 const SignupForm = () => {
-  const isLoading = true;
+  const isLoading = false;
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -110,12 +112,17 @@ const SignupForm = () => {
 
         {isLoading ? (
           <div className="flex center gap-2">
-            Loading...
+            <Loader /> Loading...
           </div>
         ) : 
           'Sign up'
         }
           </Button>
+
+          <p className="text-small-regular text-light-2 text-center">
+            Already have an account?
+            <Link to='/sign-in' className="text-primary-500 text-small-semibold ml-1">Sign In</Link>
+          </p>
         </form>
       </div>
     </Form>
