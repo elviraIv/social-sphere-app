@@ -1,3 +1,4 @@
+import PostCard from "@/components/shared/PostCard";
 import { useGetRecentPosts } from "@/lib/react-query/queries";
 import { Models } from "appwrite";
 import { Loader } from "lucide-react";
