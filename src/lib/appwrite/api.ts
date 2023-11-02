@@ -96,9 +96,9 @@ export async function signOutAccount() {
         return session
     } catch (error) {
         console.log(error);
-    
+
     }
-    
+
 }
 
 export async function createPost(post: INewPost) {
@@ -106,12 +106,12 @@ export async function createPost(post: INewPost) {
         // Upload image to storage
         const uploadedFile = await uploadFile(post.file[0])
 
-        if(!uploadedFile) throw Error;
+        if (!uploadedFile) throw Error;
 
         // Get file url
         const fileUrl = getFilePreview(uploadedFile.$id);
 
-        if(!fileUrl) {
+        if (!fileUrl) {
 
             deleteFile(uploadedFile.$id)
             throw Error
@@ -119,9 +119,9 @@ export async function createPost(post: INewPost) {
         }
 
         // Convert tags into an array
-        const tags = post.tags?.replace(/ /g,'').split(',') || [];
-        
-        
+        const tags = post.tags?.replace(/ /g, '').split(',') || [];
+
+
         // Save post to database
         const newPost = await databases.createDocument(
             appwriteConfig.databaseId,
@@ -130,14 +130,14 @@ export async function createPost(post: INewPost) {
             {
                 creator: post.userId,
                 caption: post.caption,
-                imageUrl:fileUrl,
-                imageId:uploadedFile.$id,
-                location:post.location,
-                tags:tags
+                imageUrl: fileUrl,
+                imageId: uploadedFile.$id,
+                location: post.location,
+                tags: tags
             }
         )
 
-        if(!newPost) {
+        if (!newPost) {
             await deleteFile(uploadedFile.$id)
             throw Error
         }
@@ -147,11 +147,11 @@ export async function createPost(post: INewPost) {
 
     } catch (error) {
         console.log(error);
-        
+
     }
 }
 
-export async function uploadFile(file:File) {
+export async function uploadFile(file: File) {
     try {
         const uploadedFile = await storage.createFile(
             appwriteConfig.storageId,
@@ -163,11 +163,11 @@ export async function uploadFile(file:File) {
 
     } catch (error) {
         console.log(error);
-        
+
     }
 }
 
-export async function getFilePreview(fileId:string) {
+export async function getFilePreview(fileId: string) {
     try {
         const fileUrl = storage.getFilePreview(
             appwriteConfig.storageId,
@@ -181,17 +181,29 @@ export async function getFilePreview(fileId:string) {
         return fileUrl
     } catch (error) {
         console.log(error);
-        
+
     }
 }
 
-export async function deleteFile(fileId:string) {
+export async function deleteFile(fileId: string) {
     try {
-        await storage.deleteFile(appwriteConfig.storageId,fileId);
+        await storage.deleteFile(appwriteConfig.storageId, fileId);
 
-        return {status:'ok'}
+        return { status: 'ok' }
     } catch (error) {
         console.log(error);
-        
+
     }
+}
+
+export async function getRecentPosts() {
+    const posts = await databases.listDocuments(
+        appwriteConfig.databaseId,
+        appwriteConfig.postCollectionId,
+        [Query.orderDesc('$createdAt'), Query.limit(20)]
+    )
+
+    if(!posts) throw Error;
+
+    return posts
 }
