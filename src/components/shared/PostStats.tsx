@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useUserContext } from "@/context/AuthContext";
 import {
   useDeleteSavedPost,
+  useGetCurrentUser,
   useLikePost,
   useSavePost,
 } from "@/lib/react-query/queries";
@@ -23,25 +23,40 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
   const { mutate: savePost } = useSavePost();
   const { mutate: deleteSavedPost } = useDeleteSavedPost();
 
-  const { data: curretUser } = useUserContext();
+  const { data: curretUser } = useGetCurrentUser();
 
-  const handleLikePost = (e:React.MouseEvent) => {
+  const handleLikePost = (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    let  newLikes = [...likes];
+    let newLikes = [...likes];
     const hasLiked = newLikes.includes(userId);
 
-    if(hasLiked){
-        newLikes = newLikes.filter((id) => id !== userId);
-    }else{
-        newLikes.push(userId)
+    if (hasLiked) {
+      newLikes = newLikes.filter((id) => id !== userId);
+    } else {
+      newLikes.push(userId);
     }
 
-    setLikes(newLikes)
-    likePost({postId:post.$id, likesArray:newLikes})
+    setLikes(newLikes);
+    likePost({ postId: post.$id, likesArray: newLikes });
   };
 
-  const handleSavePost = () => {};
+  const handleSavePost = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    const savedPostRecord = curretUser?.save.find(
+      (record: Models.Document) => record.$id === post.$id
+    );
+
+    if (savedPostRecord) {
+      setIsSaved(false);
+      deleteSavedPost(savedPostRecord.$id);
+      
+    } else {
+      savePost({ postId: post.$id, userId });
+      setIsSaved(true);
+    }
+  };
 
   return (
     <div className=" flex justify-between items-center z-20">
