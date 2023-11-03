@@ -289,21 +289,21 @@ export async function updatePost(post: IUpdatePost) {
             imageId: post.imageId,
         }
 
-        if(hasFileToUpdate) {
+        if (hasFileToUpdate) {
             // Upload image to storage
             const uploadedFile = await uploadFile(post.file[0])
             if (!uploadedFile) throw Error;
             // Get file url
             const fileUrl = getFilePreview(uploadedFile.$id);
-    
+
             if (!fileUrl) {
-    
+
                 deleteFile(uploadedFile.$id)
                 throw Error
-    
+
             }
 
-             image = {...image, imageUrl:fileUrl, imageId:uploadedFile.$id}
+            image = { ...image, imageUrl: fileUrl, imageId: uploadedFile.$id }
 
         }
 
@@ -339,8 +339,8 @@ export async function updatePost(post: IUpdatePost) {
     }
 }
 
-export async function deletePost(postId:string, imageId:string) {
-    if(!postId || !imageId) throw Error;
+export async function deletePost(postId: string, imageId: string) {
+    if (!postId || !imageId) throw Error;
 
     try {
         await databases.deleteDocument(
@@ -349,9 +349,51 @@ export async function deletePost(postId:string, imageId:string) {
             postId
         )
 
-        return {status: 'ok'}
+        return { status: 'ok' }
     } catch (error) {
         console.log(error);
-        
+
     }
 }
+
+export async function getInfinitePosts({ pageParam }: { pageParam: number }) {
+    const queries: any[] = [Query.orderDesc('$updatedAt'),
+    Query.limit(9)]
+    if(pageParam){
+        queries.push(Query.cursorAfter(pageParam.toString()))
+
+    }
+
+
+    try {
+        const posts = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.postCollectionId,
+            queries
+        )
+
+        if (!posts) throw Error;
+
+        return posts;
+    } catch (error) {
+        console.log(error);
+    }
+}
+export async function searchPosts(searchTerm:string) {
+    
+
+    try {
+        const posts = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.postCollectionId,
+            [Query.search('caption', searchTerm)]
+        )
+
+        if (!posts) throw Error;
+
+        return posts;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
