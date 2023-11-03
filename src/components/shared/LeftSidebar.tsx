@@ -21,8 +21,8 @@ const LeftSidebar = () => {
 
   return (
     <nav className="leftsidebar">
-      <div className="flex-col gap-11 ">
-        <Link to="/" className="flex gap-3 items-center">
+      <div className="flex-col gap-11  ">
+        <Link to="/" className="flex gap-3 items-center my">
           <img
             src="/assets/images/logo.svg"
             alt="logo"
@@ -41,7 +41,7 @@ const LeftSidebar = () => {
             className="h-14 w-14 rounded-full"
           />
 
-          <div className="flex flex-col ">
+          <div className="flex flex-col my-6 ">
             <p className="body-bold">{user.name}</p>
             <p className="small-regular text-light-3">@{user.username}</p>
           </div>
