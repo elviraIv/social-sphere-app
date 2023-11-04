@@ -21,9 +21,9 @@
     },
     extend: {
       colors: {
-        'primary-500': '#877EFF',
-        'primary-600': '#5D5FEF',
-        'secondary-500': '#FFB620',
+        'primary-500': '#F08A5D',
+        'primary-600': '#DC6F7B',
+        'secondary-500': '#B1648E',
         'off-white': '#D0DFFF',
         'red': '#FF5A5A',
         'dark-1': '#000000',

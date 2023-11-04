@@ -21,7 +21,7 @@ const PostCard = ({ post }: PostCardProps) => {
             <img
               src={
                 post?.creator?.imageUrl ||
-                "/assets/icons/profile-placeholder.svg"
+                "/assets/icons/profile-placeholder.png"
               }
               alt="creator"
               className="w-12 lg:h-12 rounded-full"
@@ -29,7 +29,7 @@ const PostCard = ({ post }: PostCardProps) => {
           </Link>
 
           <div className="flex flex-col">
-            <p className="base-medium lg:body-bold text-light-1">
+            <p className="base-medium lg:body-bold text-light-2">
               {post.creator.name}
             </p>
             <div className="flex-center gap-2 text-light-3">
