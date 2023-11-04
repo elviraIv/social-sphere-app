@@ -18,13 +18,8 @@ const Saved = () => {
 
   return (
     <div className="saved-container">
-      <div className="flex gap-2 w-full max-w-5xl">
-        <img src="/assets/icons/save.svg"
-         alt="edit"
-         width={36}
-         height={36}
-         className="invert-white"
-         />
+      <div className="flex gap-2 w-full max-w-5xl ">
+        
          <h2 className="h3-bold md:h2-bold text-left w-full text-primary-500">Saved Posts</h2>
       </div>
 
