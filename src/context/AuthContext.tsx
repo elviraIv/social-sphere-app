@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { getCurrentUser } from "@/lib/appwrite/api";
 import { IContextType, IUser } from "@/types";
 
-const INITIAL_USER = {
+export const INITIAL_USER = {
   id: "",
   name: "",
   username: "",
