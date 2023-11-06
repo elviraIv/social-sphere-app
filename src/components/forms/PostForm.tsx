@@ -11,7 +11,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "../ui/textarea";
-import FileUploader from "../shared/FileUploader";
 import { useToast } from "@/components/ui/use-toast"
 
 import { Input } from "../ui/input";
@@ -20,6 +19,7 @@ import { Models } from "appwrite";
 import { useNavigate } from "react-router-dom";
 import { useCreatePost, useUpdatePost } from "@/lib/react-query/queries";
 import { useUserContext } from "@/context/AuthContext";
+import FileUploader from "../shared/FileUploader";
 
 type PostFormProps = {
     post?: Models.Document,
