@@ -86,6 +86,7 @@
 ## Built with:
 
 - React JS;
+- React Query 
 - Vite;
 - TypeScript;
 - TailwindCSS;
