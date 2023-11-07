@@ -23,7 +23,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/elviraIv/social-sphere-app">
-    <img src="public/assets/images/logo-removebg-preview.png" alt="Logo" width="80" height="80">
+    <img src="public/assets/images/logo-removebg-preview.png" alt="Logo" width="120" >
   </a>
 
 <h3 align="center">Social Sphere App</h3>
