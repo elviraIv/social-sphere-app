@@ -75,9 +75,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<div align="center">
+
   <a href="https://github.com/elviraIv/social-sphere-app">
-    <img src="public/assets/images/overoll.png" alt="Logo" width="260" >
+    <img src="public/assets/images/overoll.png" alt="Logo"  >
   </a>
 
 
