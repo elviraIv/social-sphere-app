@@ -357,20 +357,18 @@ export async function deletePost(postId: string, imageId: string) {
 }
 
 export async function getInfinitePosts({ pageParam }: { pageParam: number }) {
-    const queries: any[] = [Query.orderDesc('$updatedAt'),
-    Query.limit(9)]
-    if(pageParam){
-        queries.push(Query.cursorAfter(pageParam.toString()))
+    const queries = [Query.orderDesc("$updatedAt"), Query.limit(9)];
 
+    if (pageParam) {
+        queries.push(Query.cursorAfter(pageParam.toString()));
     }
-
 
     try {
         const posts = await databases.listDocuments(
             appwriteConfig.databaseId,
             appwriteConfig.postCollectionId,
             queries
-        )
+        );
 
         if (!posts) throw Error;
 
@@ -379,8 +377,10 @@ export async function getInfinitePosts({ pageParam }: { pageParam: number }) {
         console.log(error);
     }
 }
-export async function searchPosts(searchTerm:string) {
-    
+  
+
+export async function searchPosts(searchTerm: string) {
+
 
     try {
         const posts = await databases.listDocuments(
@@ -397,10 +397,10 @@ export async function searchPosts(searchTerm:string) {
     }
 }
 
-export async function getUsers(limit?:number) {
-    const queries: any[] = [Query.orderDesc('$createdAt')];
+export async function getUsers(limit?: number) {
+    const queries = [Query.orderDesc('$createdAt')];
 
-    if(limit) {
+    if (limit) {
         queries.push(Query.limit(limit))
     }
 
@@ -410,15 +410,15 @@ export async function getUsers(limit?:number) {
             appwriteConfig.userCollectionId,
             queries
         );
-        if(!users) throw Error;
+        if (!users) throw Error;
         return users;
     } catch (error) {
         console.log(error);
-        
+
     }
 }
 
-export async function getUserById(userId:string) {
+export async function getUserById(userId: string) {
     try {
         const user = await databases.getDocument(
             appwriteConfig.databaseId
@@ -427,18 +427,18 @@ export async function getUserById(userId:string) {
             userId
         );
 
-        if(!user) throw Error
+        if (!user) throw Error
 
 
         return user
     } catch (error) {
         console.log(error);
-        
+
     }
-    
+
 }
 
-export async function updateUser(user:IUpdateUser) {
+export async function updateUser(user: IUpdateUser) {
     const hasFileToUpdate = user.file.length > 0;
 
     try {
@@ -447,21 +447,21 @@ export async function updateUser(user:IUpdateUser) {
             imageId: user.imageId
         };
 
-        if(hasFileToUpdate){
+        if (hasFileToUpdate) {
             // upload new file to appwrite
             const uploadedFile = await uploadFile(user.file[0])
-            if(!uploadedFile) throw Error
+            if (!uploadedFile) throw Error
 
             // get new file url
             const fileUrl = getFilePreview(uploadedFile.$id)
-            if(!fileUrl){
+            if (!fileUrl) {
                 await deleteFile(uploadedFile.$id);
                 throw Error;
             }
 
             image = {
                 ...image,
-                imageUrl:fileUrl,
+                imageUrl: fileUrl,
                 imageId: uploadedFile.$id
             }
 
@@ -471,16 +471,16 @@ export async function updateUser(user:IUpdateUser) {
                 appwriteConfig.userCollectionId,
                 user.userId,
                 {
-                    name:user.name,
-                    bio:user.bio,
-                    imageUrl:image.imageUrl,
-                    imageId:image.imageId
+                    name: user.name,
+                    bio: user.bio,
+                    imageUrl: image.imageUrl,
+                    imageId: image.imageId
                 }
             );
 
-            if(!updatedUser){
+            if (!updatedUser) {
                 //delete new file that has been recently uploaded
-                if(hasFileToUpdate){
+                if (hasFileToUpdate) {
                     await deleteFile(image.imageId)
                 }
                 // if no new file is uploadedm just throw erro
@@ -488,7 +488,7 @@ export async function updateUser(user:IUpdateUser) {
             }
 
             // safely delete oold file after successful update
-            if(user.imageId && hasFileToUpdate) {
+            if (user.imageId && hasFileToUpdate) {
                 await deleteFile(user.imageId)
             }
 
@@ -497,7 +497,7 @@ export async function updateUser(user:IUpdateUser) {
         }
     } catch (error) {
         console.log(error);
-        
+
     }
 }
 

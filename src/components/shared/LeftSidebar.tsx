@@ -6,19 +6,21 @@ import { sidebarLinks } from "@/constants";
 import { INavLink } from "@/types";
 
 const LeftSidebar = () => {
-  const { mutate: signOut, isSuccess } = useSignOutAccount();
-  const { user, setUser, setIsAuthenticated, isPending } = useUserContext();
+  const { mutate: signOut } = useSignOutAccount();
+  const { user, setUser, setIsAuthenticated } = useUserContext();
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
- const handleSignOut = async(e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-  e.preventDefault(),
-  signOut(),
-  setIsAuthenticated(false),
-  setUser(INITIAL_USER),
-  navigate('/sign-in')
- }
+  const handleSignOut = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault(),
+      signOut(),
+      setIsAuthenticated(false),
+      setUser(INITIAL_USER),
+      navigate("/sign-in");
+  };
 
   return (
     <nav className="leftsidebar">
