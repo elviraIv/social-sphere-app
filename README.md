@@ -106,10 +106,10 @@
 ## Getting Started
 
 ## Overview 
-Social Sphere is an awesome social media platform designed to bring people and communities from all corners of the globe together! It's like a super versatile space where you can share your adventures, connect with folks who share your interests, and create some truly awesome relationships. Plus, we take your privacy seriously and make sure there's a wide variety of content to explore. Social Sphere is the future of social networking, and we can't wait for you to join us on this exciting journey! 😄🌍🚀
+Social Sphere is an awesome social media platform designed to bring people and communities from all corners of the globe together! It's  a  versatile space where you can share your adventures, connect with folks, and create truly awesome relationships! 😄🌍🚀
 
 ## Motivation 
-At Social Sphere, our mission is all about crafting a social media platform that's super friendly, respects your privacy, and is all about creating those awesome connections. We totally believe in making the online world a welcoming space where you can share your stories and passions without any fuss or hassle. 😊🌟💬
+Our mission is all about crafting a social media platform that's super friendly. We totally believe in making the online world a welcoming space where you can share your stories and passions without any fuss or hassle. 😊🌟💬
 
 ### Prerequisites
 
