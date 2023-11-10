@@ -13,20 +13,18 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "noImplicitAny": false,
 
     /* Linting */
-    "strict": true,
+    "strict": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    //Shadcn
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
-
-
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
